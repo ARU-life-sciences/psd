@@ -1,0 +1,8 @@
+[package]
+name = "psd"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+paf = "0.1.11"
+pico-args = "0.5.0"
