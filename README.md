@@ -15,7 +15,7 @@ psd - Calculate the per-sequence divergence from a PAF file
 Max Brown <max.carter-brown@aru.ac.uk>
 
 USAGE:
-  psd [-h] [PAF]
+  psd [-h] <PAF>
 
 FLAGS:
   -h, --help            Prints help information
