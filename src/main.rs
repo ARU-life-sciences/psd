@@ -27,7 +27,7 @@ fn parse_args() -> Result<PSDArgs, pico_args::Error> {
     let mut pargs = pico_args::Arguments::from_env();
 
     if pargs.contains(["-h", "--help"]) {
-        print!("{}", HELP);
+        print!("{HELP}");
         std::process::exit(0);
     }
 
@@ -42,7 +42,7 @@ fn parse_args() -> Result<PSDArgs, pico_args::Error> {
 
     let remaining = pargs.finish();
     if !remaining.is_empty() {
-        eprintln!("Warning: unused arguments left: {:?}.", remaining);
+        eprintln!("Warning: unused arguments left: {remaining:?}.");
     }
 
     Ok(args)
@@ -52,11 +52,11 @@ struct PAFSorter(Vec<paf::PafRecord>);
 
 impl PAFSorter {
     fn sort_by_query_start(&mut self) {
-        self.0.sort_by(|a, b| a.query_start().cmp(&b.query_start()));
+        self.0.sort_by_key(|a| a.query_start());
     }
 
     fn sort_by_query_name(&mut self) {
-        self.0.sort_by(|a, b| a.query_name().cmp(&b.query_name()));
+        self.0.sort_by(|a, b| a.query_name().cmp(b.query_name()));
     }
 }
 
@@ -64,7 +64,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = match parse_args() {
         Ok(v) => v,
         Err(e) => {
-            eprintln!("Error: {}.", e);
+            eprintln!("Error: {e}.");
             std::process::exit(1);
         }
     };
@@ -152,7 +152,7 @@ fn paf(args: PSDArgs) -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let psd = sum_aln_len_de / sum_aln_len;
-    let _ = writeln!(stdout, "{}", psd);
+    let _ = writeln!(stdout, "{psd}");
 
     Ok(())
 }
